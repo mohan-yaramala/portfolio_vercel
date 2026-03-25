@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohan's Portfolio 🚀</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Fira Code', monospace;
+            background: #0a0a0a;
+            color: #00ff00;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .terminal-window {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: #000;
+        }
+
+        .terminal-header {
+            background: #1a1a1a;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #00ff00;
+        }
+
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+        }
+
+        .terminal-button:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .close-btn { 
+            background: #ff5f56;
+        }
+        .close-btn:hover {
+            background: #ff3b30;
+        }
+        
+        .minimize-btn { 
+            background: #ffbd2e;
+        }
+        .minimize-btn:hover {
+            background: #ffa500;
+        }
+        
+        .maximize-btn { 
+            background: #27c93f;
+        }
+        .maximize-btn:hover {
+            background: #00ff00;
+        }
+
+        .terminal-title {
+            margin-left: auto;
+            color: #00ff00;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .terminal-body {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            background: #000;
+            position: relative;
+        }
+
+        .terminal-line {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .prompt {
+            color: #00ff00;
+            margin-right: 10px;
+            font-weight: 600;
+        }
+
+        .command {
+            color: #00ddff;
+        }
+
+        .output {
+            color: #00ff00;
+            margin-left: 30px;
+            white-space: pre-wrap;
+        }
+
+        .heading {
+            color: #00ff00;
+            font-size: 32px;
+            font-weight: 600;
+            margin: 20px 0;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .subheading {
+            color: #00ddff;
+            font-size: 20px;
+            font-weight: 500;
+            margin: 15px 0;
+            padding-left: 20px;
+            text-shadow: 0 0 5px rgba(0, 221, 255, 0.3);
+        }
+
+        .content-text {
+            color: #00dd00;
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .paragraph {
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: #00ff00;
+            animation: blink 1s infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        .scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(0, 255, 0, 0.02) 50%,
+                transparent 100%
+            );
+            animation: scan 8s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .back-button:hover {
+            background: #00ff00;
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        }
+
+        .glow {
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.8);
+        }
+
+        .highlight {
+            color: #00ffff;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal-window">
+        <div class="terminal-header">
+            <div class="terminal-button close-btn" onclick="goBack()" title="Close"></div>
+            <div class="terminal-button minimize-btn" onclick="minimizeWindow()" title="Minimize"></div>
+            <div class="terminal-button maximize-btn" onclick="toggleFullscreen()" title="Maximize"></div>
+            <div class="terminal-title">Terminal - About Me</div>
+        </div>
+        
+        <div class="terminal-body">
+            <button class="back-button" onclick="goBack()">← Back</button>
+            <div class="scanline"></div>
+            
+            <div class="terminal-line">
+                <span class="prompt">$</span>
+                <span class="command" id="command"></span>
+                <span class="cursor" id="cursor1"></span>
+            </div>
+            
+            <div class="terminal-line" id="output-section" style="display: none;">
+                <div class="heading" id="heading"></div>
+                <div class="subheading" id="subheading"></div>
+                <div class="paragraph" id="paragraph1"></div>
+                <div class="paragraph" id="paragraph2"></div>
+                <span class="cursor" id="cursor2" style="display: none;"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const commandText = "cat about-me.txt";
+        const headingText = "I'm Mohan";
+        const subheadingText = "Computer Science Student | Motion Graphics & UI/UX Web Designer";
+        const paragraph1Text = "A creative professional specializing in Motion Graphics and UI/UX Web Design. With expertise in logo animations, motion visuals, and modern web interfaces, I craft digital experiences that are both visually striking and strategically effective.";
+        const paragraph2Text = "I believe great design is not just about aesthetics — it's about creating meaningful impact. Every project is an opportunity to blend creativity with purpose, delivering solutions that resonate with users and drive results.";
+
+        let commandIndex = 0;
+        let headingIndex = 0;
+        let subheadingIndex = 0;
+        let paragraph1Index = 0;
+        let paragraph2Index = 0;
+
+        function typeCommand() {
+            if (commandIndex < commandText.length) {
+                document.getElementById('command').textContent += commandText.charAt(commandIndex);
+                commandIndex++;
+                setTimeout(typeCommand, 80);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('cursor1').style.display = 'none';
+                    document.getElementById('output-section').style.display = 'block';
+                    typeHeading();
+                }, 500);
+            }
+        }
+
+        function typeHeading() {
+            if (headingIndex < headingText.length) {
+                document.getElementById('heading').textContent += headingText.charAt(headingIndex);
+                headingIndex++;
+                setTimeout(typeHeading, 60);
+            } else {
+                setTimeout(() => {
+                    typeSubheading();
+                }, 300);
+            }
+        }
+
+        function typeSubheading() {
+            if (subheadingIndex < subheadingText.length) {
+                document.getElementById('subheading').textContent += subheadingText.charAt(subheadingIndex);
+                subheadingIndex++;
+                setTimeout(typeSubheading, 40);
+            } else {
+                setTimeout(() => {
+                    typeParagraph1();
+                }, 300);
+            }
+        }
+
+        function typeParagraph1() {
+            if (paragraph1Index < paragraph1Text.length) {
+                document.getElementById('paragraph1').textContent += paragraph1Text.charAt(paragraph1Index);
+                paragraph1Index++;
+                setTimeout(typeParagraph1, 25);
+            } else {
+                setTimeout(() => {
+                    typeParagraph2();
+                }, 300);
+            }
+        }
+
+        function typeParagraph2() {
+            if (paragraph2Index < paragraph2Text.length) {
+                document.getElementById('paragraph2').textContent += paragraph2Text.charAt(paragraph2Index);
+                paragraph2Index++;
+                setTimeout(typeParagraph2, 25);
+            } else {
+                document.getElementById('cursor2').style.display = 'inline-block';
+            }
+        }
+
+        function goBack() {
+            window.location.href = './desktop-os.html';
+        }
+
+        function minimizeWindow() {
+            document.querySelector('.terminal-body').style.display = 'none';
+            setTimeout(() => {
+                document.querySelector('.terminal-body').style.display = 'block';
+            }, 500);
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // Start typing animation
+        window.addEventListener('load', () => {
+            setTimeout(typeCommand, 500);
+        });
+
+        // Click sound effect
+        document.addEventListener('mousedown', () => {
+            window.parent.postMessage('mousedown', '*');
+        });
+
+        document.addEventListener('mouseup', () => {
+            window.parent.postMessage('mouseup', '*');
+        });
+    </script>
+</body>
+</html>
