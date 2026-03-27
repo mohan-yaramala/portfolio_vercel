@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohan's Portfolio 🚀</title>
+    <style>
+        :root {
+            color-scheme: dark;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Sora", "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+            background: radial-gradient(circle at top left, #20243a 0%, #0f111c 45%, #07070b 100%);
+            color: #f5f7ff;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 24px;
+        }
+
+        .skills-card {
+            width: min(960px, 95vw);
+            height: min(86vh, 760px);
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, rgba(12, 14, 22, 0.92), rgba(8, 10, 16, 0.86));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 26px;
+            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            overflow: hidden;
+        }
+
+        .window-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 22px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(10, 12, 18, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+
+        .window-title {
+            font-size: 0.95rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(245, 247, 255, 0.7);
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .window-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(124, 92, 255, 0.15);
+            color: #e3ddff;
+            font-size: 16px;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
+        }
+
+        .window-btn.close {
+            background: rgba(255, 92, 122, 0.18);
+            color: #ffd9e2;
+        }
+
+        .window-btn:hover {
+            transform: translateY(-2px);
+            background: rgba(124, 92, 255, 0.3);
+            box-shadow: 0 10px 20px rgba(124, 92, 255, 0.35);
+        }
+
+        .window-btn:active {
+            transform: translateY(0) scale(0.96);
+        }
+
+        .content {
+            padding: clamp(26px, 4vw, 44px);
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            background: rgba(124, 92, 255, 0.35);
+            border-radius: 999px;
+        }
+
+        .heading {
+            font-size: clamp(2.4rem, 4vw, 3.8rem);
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            text-align: center;
+            margin-bottom: 22px;
+            opacity: 0;
+            transform: translateY(12px);
+            animation: fadeUp 700ms ease forwards;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(245, 247, 255, 0.68);
+            font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+            margin-bottom: 30px;
+        }
+
+        .skills-list {
+            list-style: none;
+            display: grid;
+            gap: 16px;
+        }
+
+        .skills-list li {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            opacity: 0;
+            transform: translateY(18px);
+            animation: fadeUp 600ms ease forwards;
+            transition: transform 200ms ease, box-shadow 200ms ease, border 200ms ease, background 200ms ease;
+        }
+
+        .skills-list li:hover,
+        .skills-list li.active {
+            border-color: rgba(124, 92, 255, 0.55);
+            box-shadow: 0 0 18px rgba(124, 92, 255, 0.35);
+            background: rgba(124, 92, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .skill-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: rgba(124, 92, 255, 0.2);
+            color: #c9c1ff;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .skill-text {
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            font-weight: 600;
+            letter-spacing: 0.01em;
+        }
+
+        .skills-list li:nth-child(1) { animation-delay: 0.2s; }
+        .skills-list li:nth-child(2) { animation-delay: 0.35s; }
+        .skills-list li:nth-child(3) { animation-delay: 0.5s; }
+        .skills-list li:nth-child(4) { animation-delay: 0.65s; }
+        .skills-list li:nth-child(5) { animation-delay: 0.8s; }
+        .skills-list li:nth-child(6) { animation-delay: 0.95s; }
+        .skills-list li:nth-child(7) { animation-delay: 1.1s; }
+        .skills-list li:nth-child(8) { animation-delay: 1.25s; }
+
+        .minimized .content {
+            display: none;
+        }
+
+        .minimized {
+            height: auto;
+        }
+
+        .minimized .window-title {
+            color: rgba(245, 247, 255, 0.9);
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 680px) {
+            .content {
+                padding: 22px;
+            }
+
+            .skills-list {
+                gap: 12px;
+            }
+
+            .skills-list li {
+                padding: 12px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="skills-card">
+        <div class="window-bar">
+            <button class="window-btn" id="backButton" aria-label="Go back">⟵</button>
+            <div class="window-title">Skills Dashboard</div>
+            <div class="window-controls">
+                <button class="window-btn" id="minimizeButton" aria-label="Minimize">▁</button>
+                <button class="window-btn close" id="closeButton" aria-label="Close">×</button>
+            </div>
+        </div>
+        <div class="content">
+            <h1 class="heading">I Can Do</h1>
+            <p class="subtitle">Creative + motion focused design skills tailored for modern digital products.</p>
+            <ul class="skills-list">
+                <li>
+                    <span class="skill-icon">🎯</span>
+                    <span class="skill-text">UI Web Design</span>
+                </li>
+                <li>
+                    <span class="skill-icon">🖼️</span>
+                    <span class="skill-text">Product Poster Design</span>
+                </li>
+                <li>
+                    <span class="skill-icon">🔷</span>
+                    <span class="skill-text">Logo Design</span>
+                </li>
+                <li>
+                    <span class="skill-icon">✨</span>
+                    <span class="skill-text">Logo Animation</span>
+                </li>
+                <li>
+                    <span class="skill-icon">🎬</span>
+                    <span class="skill-text">Explainer Videos</span>
+                </li>
+                <li>
+                    <span class="skill-icon">🎥</span>
+                    <span class="skill-text">Motion Graphic Promotional Videos</span>
+                </li>
+                <li>
+                    <span class="skill-icon">✂️</span>
+                    <span class="skill-text">Video Editing</span>
+                </li>
+                <li>
+                    <span class="skill-icon">📝</span>
+                    <span class="skill-text">Content Creation</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <script>
+        const skillsCard = document.querySelector('.skills-card');
+        const minimizeButton = document.getElementById('minimizeButton');
+        const backButton = document.getElementById('backButton');
+        const closeButton = document.getElementById('closeButton');
+        const skillItems = document.querySelectorAll('.skills-list li');
+
+        minimizeButton.addEventListener('click', () => {
+            skillsCard.classList.toggle('minimized');
+        });
+
+        backButton.addEventListener('click', () => {
+            window.location.href = './desktop-os.html';
+        });
+
+        closeButton.addEventListener('click', () => {
+            window.location.href = './desktop-os.html';
+        });
+
+        skillItems.forEach((item) => {
+            item.addEventListener('click', () => {
+                skillItems.forEach((el) => el.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

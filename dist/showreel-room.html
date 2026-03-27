@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohan's Portfolio 🚀</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            height: 100vh;
+            cursor: default;
+            user-select: none;
+        }
+
+        .projects-container {
+            padding: 30px;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            padding: 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .project-title {
+            font-size: 1.3em;
+            color: white;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .project-description {
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75em;
+        }
+
+        .featured-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-card::before {
+            content: '⭐ FEATURED';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 215, 0, 0.9);
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .project-card {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="projects-container">
+        <div class="header">
+            <h1>🚀 Projects Showcase</h1>
+            <p>Explore my work and creations</p>
+        </div>
+
+        <div class="projects-grid">
+            <div class="project-card featured-card" data-project="showreel">
+                <div class="project-icon">🎬</div>
+                <div class="project-title">my portfolio video </div>
+                <div class="project-description">Watch my latest portfolio video done by using motion graphics  </div>
+                <div class="project-tags">
+                    <span class="tag">Motion Design</span>
+                    <span class="tag">Animation</span>
+                    <span class="tag">Video</span>
+                </div>
+            </div>
+
+            <div class="project-card" data-project="webapp">
+                <div class="project-icon">💻</div>
+                <div class="project-title">Web Application</div>
+                <div class="project-description">Full-stack web application with modern features</div>
+                <div class="project-tags">
+                    <span class="tag">React</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">MongoDB</span>
+                </div>
+            </div>
+
+            <div class="project-card" data-project="mobile">
+                <div class="project-icon">📱</div>
+                <div class="project-title">Mobile App</div>
+                <div class="project-description">Cross-platform mobile application</div>
+                <div class="project-tags">
+                    <span class="tag">React Native</span>
+                    <span class="tag">iOS</span>
+                    <span class="tag">Android</span>
+                </div>
+            </div>
+
+            <div class="project-card" data-project="game">
+                <div class="project-icon">🎮</div>
+                <div class="project-title">Game Development</div>
+                <div class="project-description">Interactive game with engaging mechanics</div>
+                <div class="project-tags">
+                    <span class="tag">Unity</span>
+                    <span class="tag">C#</span>
+                    <span class="tag">Gaming</span>
+                </div>
+            </div>
+
+            <div class="project-card" data-project="ai">
+                <div class="project-icon">🤖</div>
+                <div class="project-title">AI Project</div>
+                <div class="project-description">Machine learning and AI implementation</div>
+                <div class="project-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">TensorFlow</span>
+                    <span class="tag">ML</span>
+                </div>
+            </div>
+
+            <div class="project-card" data-project="design">
+                <div class="project-icon">🎨</div>
+                <div class="project-title">Design System</div>
+                <div class="project-description">Comprehensive UI/UX design system</div>
+                <div class="project-tags">
+                    <span class="tag">Figma</span>
+                    <span class="tag">UI/UX</span>
+                    <span class="tag">Design</span>
+                </div>
+            </div>
+
+            <div class="project-card" data-project="ecommerce">
+                <div class="project-icon">🛒</div>
+                <div class="project-title">E-Commerce</div>
+                <div class="project-description">Online shopping platform with payment integration</div>
+                <div class="project-tags">
+                    <span class="tag">Next.js</span>
+                    <span class="tag">Stripe</span>
+                    <span class="tag">PostgreSQL</span>
+                </div>
+            </div>
+
+            <div class="project-card" data-project="api">
+                <div class="project-icon">🔌</div>
+                <div class="project-title">REST API</div>
+                <div class="project-description">RESTful API with comprehensive documentation</div>
+                <div class="project-tags">
+                    <span class="tag">Express</span>
+                    <span class="tag">API</span>
+                    <span class="tag">REST</span>
+                </div>
+            </div>
+
+            <div class="project-card" data-project="blockchain">
+                <div class="project-icon">⛓️</div>
+                <div class="project-title">Blockchain App</div>
+                <div class="project-description">Decentralized application on blockchain</div>
+                <div class="project-tags">
+                    <span class="tag">Solidity</span>
+                    <span class="tag">Web3</span>
+                    <span class="tag">Ethereum</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Handle project card clicks
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                const project = card.getAttribute('data-project');
+                console.log('Project clicked:', project);
+                
+                // Navigate to showreel page for the showreel project
+                if (project === 'showreel') {
+                    window.location.href = './showreel.html';
+                }
+                // You can add navigation or modal logic for other projects here
+            });
+
+            card.addEventListener('mousedown', (e) => {
+                window.parent.postMessage('mousedown', '*');
+            });
+
+            card.addEventListener('mouseup', (e) => {
+                window.parent.postMessage('mouseup', '*');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohan's Portfolio 🚀</title>
+    <style>
+        :root {
+            color-scheme: dark;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Sora", "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+            background: radial-gradient(circle at top left, #1c2231 0%, #0c0f16 55%, #08080b 100%);
+            color: #f5f7ff;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .contact-window {
+            width: min(860px, 94vw);
+            background: linear-gradient(135deg, rgba(15, 18, 28, 0.94), rgba(9, 11, 17, 0.9));
+            border-radius: 26px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(18px);
+            overflow: hidden;
+        }
+
+        .window-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 22px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(10, 12, 18, 0.92);
+        }
+
+        .window-title {
+            font-size: 0.95rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(245, 247, 255, 0.7);
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .window-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(124, 92, 255, 0.15);
+            color: #e3ddff;
+            font-size: 16px;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
+        }
+
+        .window-btn:hover {
+            transform: translateY(-2px);
+            background: rgba(124, 92, 255, 0.3);
+            box-shadow: 0 10px 20px rgba(124, 92, 255, 0.35);
+        }
+
+        .window-btn:active {
+            transform: translateY(0) scale(0.96);
+        }
+
+        .window-btn.close {
+            background: rgba(255, 92, 122, 0.18);
+            color: #ffd9e2;
+        }
+
+        .content {
+            padding: clamp(28px, 4vw, 46px);
+            display: grid;
+            gap: 20px;
+        }
+
+        .heading {
+            font-size: clamp(2.4rem, 4vw, 3.5rem);
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(245, 247, 255, 0.68);
+            font-size: clamp(1rem, 1.8vw, 1.15rem);
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 18px;
+            padding: 24px;
+            display: grid;
+            gap: 14px;
+            box-shadow: inset 0 0 0 1px rgba(124, 92, 255, 0.08);
+        }
+
+        .contact-card label {
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(245, 247, 255, 0.7);
+        }
+
+        .email-box {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            border-radius: 14px;
+            background: rgba(10, 12, 20, 0.7);
+            border: 1px solid rgba(124, 92, 255, 0.2);
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .email-box span {
+            color: #cdd3ff;
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .cta-button {
+            padding: 12px 22px;
+            border-radius: 999px;
+            border: 1px solid rgba(124, 92, 255, 0.4);
+            background: rgba(124, 92, 255, 0.2);
+            color: #f5f7ff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            background: rgba(124, 92, 255, 0.35);
+            box-shadow: 0 12px 24px rgba(124, 92, 255, 0.3);
+        }
+
+        @media (max-width: 640px) {
+            .content {
+                padding: 24px;
+            }
+
+            .email-box {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="contact-window">
+        <div class="window-bar">
+            <button class="window-btn" id="backButton" aria-label="Go back">⟵</button>
+            <div class="window-title">Contact</div>
+            <div class="window-controls">
+                <button class="window-btn" id="minimizeButton" aria-label="Minimize">▁</button>
+                <button class="window-btn close" id="closeButton" aria-label="Close">×</button>
+            </div>
+        </div>
+        <div class="content" id="contentArea">
+            <h1 class="heading">Get in Touch</h1>
+            <p class="subtitle">Let’s build something great together. Reach out anytime.</p>
+            <div class="contact-card">
+                <label>Email</label>
+                <div class="email-box">
+                    <span>mohanyaramala555@gmail.com</span>
+                </div>
+                <div class="cta-row">
+                    <a class="cta-button" href="mailto:mohanyaramala555@gmail.com?subject=Portfolio%20Inquiry">Send Email</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const backButton = document.getElementById('backButton');
+        const minimizeButton = document.getElementById('minimizeButton');
+        const closeButton = document.getElementById('closeButton');
+        const contentArea = document.getElementById('contentArea');
+
+        backButton.addEventListener('click', () => {
+            window.location.href = './desktop-os.html';
+        });
+
+        closeButton.addEventListener('click', () => {
+            window.location.href = './desktop-os.html';
+        });
+
+        minimizeButton.addEventListener('click', () => {
+            const isHidden = contentArea.style.display === 'none';
+            contentArea.style.display = isHidden ? 'grid' : 'none';
+        });
+    </script>
+</body>
+</html>
